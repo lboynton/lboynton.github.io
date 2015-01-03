@@ -4,8 +4,12 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+Hello. This is the personal website of Lee Boynton.
 
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
+I am:
 
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+- Primarily a PHP web developer, though have experience of everything from Linux system administration, back-end development and front-end development
+- Currently working at [eDigitalResearch](http://www.edigitalresearch.com) (near Southampton, UK) as a Software Engineer
+- Involved with [PHP Hampshire](http://www.phphants.co.uk) where I help organise meet ups (Get in touch on Twitter if you'd like to speak at one of our events!)
+
+See my [CV](http://cv.lboynton.com) and [GitHub](http://github.com/lboynton) profile where I occasionally find the time to contribute to open source software.
