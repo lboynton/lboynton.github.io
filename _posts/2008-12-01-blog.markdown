@@ -1,0 +1,11 @@
+---
+layout: post
+title: Blog
+date: 2008-12-01 01:20:04.000000000 +00:00
+categories: []
+permalink: /2008/12/01/blog/
+---
+
+I decided I would try out blogging with WordPress. Incidentally, the selection of themes WordPress have are quite disappointing.
+
+I shall begin preparing for a proper post, stay tuned.
