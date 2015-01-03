@@ -1,0 +1,80 @@
+---
+layout: post
+title: ejabberd mod_archive with MySQL on Ubuntu
+date: 2009-11-25 12:57:21.000000000 +00:00
+categories:
+- System Administration
+tags:
+- ejabberd
+- mod_archive
+- mod_archive_webviewer
+- mysql
+- odbc
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+author:
+  login: lboynton
+  email: lee@lboynton.com
+  display_name: lboynton
+  first_name: Lee
+  last_name: Boynton
+---
+<ol>
+<li>Install the MySQL ODBC driver,<br />
+<blockquote><p>apt-get install libmyodbc</p></blockquote>
+</li>
+<li>Create an ODBC configuration for ejabberd at /etc/odbc.ini,
+<pre class="php">[ODBC Data Sources]
+odbcname     = MyODBC 3.51 Driver DSN
+
+[ejabberd]
+Driver       = /usr/lib/odbc/libmyodbc.so
+Description  = MyODBC 3.51 Driver DSN
+SERVER       = localhost
+PORT         =
+USER         = ejabberd
+Password     = ejabberd
+Database     = ejabberd
+OPTION       = 3
+SOCKET       =</pre>
+</li>
+<li>Download mod_archive from Subversion.</li>
+<pre>svn co https://svn.process-one.net/ejabberd-modules
+cd ejabberd-modules/mod_archive/trunk</pre>
+<li>You may then have to edit Emakefile before compiling. This is because by default it will point to the include files from ejabberd trunk, which will probably be for a newer version of ejabberd than you have installed, unless you installed ejabberd from trunk. in Emakefile replace all instances of:</li>
+<pre>trunk</pre>
+<p>With</p>
+<pre>branches/ejabberd-2.0.x</pre>
+<p>And then run</p>
+<pre>./build.sh</pre>
+<li>This will generate some *.beam files in the ebin directory. Copy these to the ejabberd ebin directory which should contain all the other ejabberd .beam files. The directory for me is /usr/lib/ejabberd/ebin/.</li>
+<li>Create the MySQL database schema using the SQL scripts from mod_archive. They are in ejabberd-modules/mod_archive/trunk/src/*.sql. The script for MySQL is mod_archive_odbc_mysql.sql.</li>
+<li>Add in the configuration options to enable mod_archive in ejabberd.cfg, under modules:</li>
+<li>
+<pre>{mod_archive_odbc, []},</pre>
+</li>
+<li>Create ODBC connection:</li>
+<pre>{odbc_server, "DSN=ejabberd;UID=ejabberd;PWD=ejabberd"}.</pre>
+<p>Note that the authentication won't use this by default because in the configuration file there is an option:</p>
+<pre>{auth_method, internal}.</pre>
+<p>Which means it will use the internal mnesia database for auth.</p>
+<li>Finally, to view the archives in a web browser, add to the listen section of the ejabberd.cfg file:
+<pre>{request_handlers, [{["archive"],mod_archive_webview}]}</pre>
+<p>So that the final section for port 5280 looks something like</p>
+<pre>  {5280, ejabberd_http, [
+			 http_poll,
+			 web_admin,
+                         {request_handlers, [{["archive"],mod_archive_webview}]}
+			]}
+
+ ]}.</pre>
+</li>
+<li>The archives should then be visible at http://host:5280/archive/</li>
+</ol>
+<h2>More info</h2>
+<ul>
+<li><a href="https://help.ubuntu.com/community/ODBC">https://help.ubuntu.com/community/ODBC</a></li>
+</ul>

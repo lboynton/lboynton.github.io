@@ -1,0 +1,47 @@
+---
+layout: post
+title: Trying Out PHP in Netbeans 6.5
+date: 2008-12-05 23:48:22.000000000 +00:00
+categories:
+- Programming
+- Web Development
+tags:
+- dreamweaver
+- NetBeans
+- open source
+- php
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '5950206'
+author:
+  login: lboynton
+  email: lee@lboynton.com
+  display_name: lboynton
+  first_name: Lee
+  last_name: Boynton
+---
+<p>I have been trying out Netbeans 6.5's PHP support in recent weeks, whereas previously I was mostly using Dreamweaver. Here are some things I think Netbeans does better than Dreamweaver (in CS3, I haven't tried CS4):</p>
+<ul>
+<li>OOP support. Although it's not as good as it is for Java. For instance, when subclassing an abstract class Netbeans will not provide me with a way to override the abstract methods for it. Anyone know why? Instead I have to copy and paste the abstract methods which is quite tedious and can be error prone. It also does not show errors when I try to access a variable which does not exist or call methods which do not exist. Netbeans knows when a method does not exist because it won't go to the method declaration when ctrl+clicking the method name.</li>
+<li>Support for PHPdoc. Netbeans will create a skeleton PHPdoc block as soon as you type /** and hit enter, this works the same as for Java.</li>
+<li>Netbeans stores project specific files along with the project itself. This means the project is much more portable between different systems (as long as those systems run Netbeans). The project files are included in any version control systems so you can quickly open the project on another system. In Dreamweaver you have to create a new site on each computer or manually export/import the site definitions.</li>
+<li>Netbeans will highlight all references to a variable when you place the cursor inside the variable name.</li>
+<li>Netbeans allows you to rename variables and functions once, and it will update it everywhere else. OK, this doesn't work quite how I'd like. For instance it only seems to update the references to the functions or variables in the same file.</li>
+<li>PHP debugger. I haven't used this yet.</li>
+<li>It's easy to go to the function declaration you are looking for in a class using Netbeans' navigator which will take you to the line the function starts at by double clicking its name in the function list (which is helpfully alphabetically sorted).</li>
+<li>Database integration. I haven't used this much, but it allows you to communicate with the database without an external tool. There appear to be drivers for at least MySQL and PostgreSQL.</li>
+<li>Support for different version control systems. I believe CS4 only has support for Subversion, but Netbeans supports CVS, SVN, Mercurial and probably others.</li>
+<li>Support for JavaScript frameworks. Haven't used this yet, but apparently Netbeans will provide code completion and integrated documentation for Prototype, Scriptaculous, JQuery, Dojo etc. This should be very useful as it means no more trips to the API website.</li>
+</ul>
+<p>Of course, this is aside from the fact Netbeans is open source, much more extensible and configurable, and is cross-platform. On the other side, Dreamweaver is a nicer environment to work in visually. Also:</p>
+<ul>
+<li>Dreamweaver's FTP functionality is much more mature than Netbeans. For example, Netbeans does not support SFTP, and synchronising is easier in Dreamweaver.</li>
+<li>Netbeans does not seem to support CSS code completion, a feature I really miss as it's impossible to know every CSS property. Netbeans does however offer information about the values that can be applied to each CSS property and a preview window which is kind of useful.</li>
+</ul>
+<p>One thing which took me a while to work out:</p>
+<ul>
+<li>Because PHP doesn't use object references , you have to add the return types to the PHPdoc so that Netbeans knows what object types functions return for the code completion to work.</li>
+</ul>
+<p>I think what Netbeans needs to work on is a bit is polish; make it a more appealing environment to work in. I would like to see Netbeans have support for PHP frameworks such as CakePHP and Zend Framework in the future as well. One of these days I intend to try out some other IDEs, such as Eclipse. For the time being though I shall continue developing PHP websites in Netbeans.</p>

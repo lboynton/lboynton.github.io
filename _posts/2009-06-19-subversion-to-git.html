@@ -1,0 +1,64 @@
+---
+layout: post
+title: Subversion to Git
+date: 2009-06-19 11:39:10.000000000 +01:00
+categories:
+- Programming
+tags:
+- git
+- git push
+- subversion
+- svn
+- version control
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+author:
+  login: lboynton
+  email: lee@lboynton.com
+  display_name: lboynton
+  first_name: Lee
+  last_name: Boynton
+---
+<p>Recently I decided to have a look at using Git for my projects instead of Subversion. Git has many advantages over Subversion, the main one I was interested in is that it is a distributed VCS. This has the benefit that code can be committed and branched in your own local repository and it does not rely on network access. The only downside I can see to this is that you are perhaps less likely to have a backup of your code on a separate machine. Therefore I was interested in setting up Git so that I can still commit my changes to a centralised location for a backup. As a result, this post is intended to serve as a quick introduction to Git and a how-to for setting up a repository for pushing changes to.</p>
+<h1>Git usage</h1>
+<p>Set the name and email address which your commits will use with:</p>
+<pre>git config --global user.name "Your name"
+git config --global user.email "Your email"</pre>
+<p>This gets stored in ~/.gitconfig. Removing the --global flag will apply the values to a specific project if in a git project directory.</p>
+<p>To initialise a new git repository, go to the root directory of the project files and use:</p>
+<pre>git init</pre>
+<p>To add files to be committed use the following. This applies to both new files and modified files which should be committed, which differs to Subversion in which only new files need to be added and all modified files will be automatically added.</p>
+<pre>git add file.txt</pre>
+<p>To remove a file which has been added to the next commit:</p>
+<pre>git reset HEAD file.txt</pre>
+<p>To delete a file from the project, which will be removed during the next commit:</p>
+<pre>git rm file.txt</pre>
+<p>To diff the files which have not been added to the next commit:</p>
+<pre>git diff</pre>
+<p>To diff the files which have been added to the next commit:</p>
+<pre>git diff --cached</pre>
+<p>To commit changes to the repository:</p>
+<pre>git commit</pre>
+<p>To commit changes to the repository and automatically add any modified (but not new) files:</p>
+<pre>git commit -a</pre>
+<p>To view the log of all previous commits:</p>
+<pre>git log</pre>
+<p>To get a copy of a Git project:</p>
+<pre>git clone /path/to/project.git</pre>
+<h1>Setting up a push repository</h1>
+<p>For this I found <a href="http://toolmantim.com/articles/setting_up_a_new_remote_git_repository" target="_blank">this link</a> to be useful. Essentially you connect to the server you wish to push changes to via SSH or some other method, create a directory for the project and initialise it as a bare repository.</p>
+<pre>git --bare init /path/to/project.git</pre>
+<p>And then on the system you wish to push from, add a remote repository, in the following case it will be called "origin":</p>
+<pre>git remote add origin ssh://myserver.com/path/to/project.git</pre>
+<p>Then pushes can be performed using:</p>
+<pre>git push origin master</pre>
+<p>It is important not to push to a repository with a working copy, as changes may get lost.</p>
+<h1>Resources</h1>
+<p>The following resources were used:</p>
+<ul>
+<li><a title="Git book" href="http://book.git-scm.com/" target="_blank">Git book</a></li>
+<li><a title="Setting up a new remote git repository" href="http://toolmantim.com/articles/setting_up_a_new_remote_git_repository" target="_blank">Setting up a new remote git repository</a></li>
+</ul>
