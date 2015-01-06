@@ -12,3 +12,5 @@ Please note that the call for papers ends soon, on the 12th January.
 ![PHP South Coast logo](/assets/phpsclogo.png)
 
 If you are not quite yet ready to speak at a conference, but would like to attend, that is also possible! Tickets are available (currently at a very reasonable blind bird price!), also on the [conference website](http://2015.phpsouthcoast.co.uk).
+
+{% include twitter_plug.html %}
