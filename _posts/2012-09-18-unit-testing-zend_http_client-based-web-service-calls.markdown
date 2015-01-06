@@ -15,4 +15,4 @@ When testing code which makes HTTP requests to web services, you do not want you
 
 Thus, here is a basic example of a web service client class and it's corresponding test class. By using the Zend_Http_Client_Adapter_Test adapter, we can tell Zend_Http_Client when we want it to fail, and test that the code handles failure gracefully.
 
-https://gist.github.com/3744912
+{% gist lboynton/3744912 %}
