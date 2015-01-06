@@ -11,6 +11,8 @@ tags:
 - odbc
 permalink: /2009/11/25/ejabberd-mod_archive-with-mysql-on-ubuntu/
 ---
+Follow these steps to enable mod_archive:
+
 1.  Install the MySQL ODBC driver,
 
     > apt-get install libmyodbc
