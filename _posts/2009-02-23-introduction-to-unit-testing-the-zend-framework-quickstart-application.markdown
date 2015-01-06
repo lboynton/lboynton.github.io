@@ -46,7 +46,7 @@ All your controller tests should go in the controllers folder, all your model te
 
 Create the file TestConfiguration.php in the tests folder. This file will initially set up the testing configuration, inside place the following code:
 
-{% highlight php %}
+{% highlight php linenos %}
 <?php
 // Gets called when this file is included/required
 TestConfiguration::setUp();
@@ -95,7 +95,7 @@ The setUpDatabase() function resets the database to a known state. When the test
 
 To test the IndexController, create the file IndexControllerTest.php in the tests/controller directory. The following is a simple example:
 
-{% highlight php %}
+{% highlight php linenos %}
 <?php
 // Set up the testing environment
 require 'TestConfiguration.php';
@@ -145,7 +145,7 @@ The testHomePageIsASuccessfulRequest() test is used to test that the homepage fu
 
 To test the GuestBook model, create the file GuestBookTest.php in tests/models.
 
-{% highlight php %}
+{% highlight php linenos %}
 <?php
 require 'TestConfiguration.php';
 require '../application/models/GuestBook.php';
@@ -179,7 +179,7 @@ Again, this is very basic. The setUp() function gets called by PHPUnit before th
 
 You may find it annoying to have to wait 5 seconds between model tests when the database is recreated. I worked around this problem by making a small change to the PHP script which loads the database schema:
 
-{% highlight php %}
+{% highlight php linenos %}
 <?php
 if (APPLICATION_ENVIRONMENT != 'testing')
 {
@@ -193,7 +193,7 @@ if (APPLICATION_ENVIRONMENT != 'testing')
 
 If the application environment is not testing then the timeout should not be displayed. You may prefer to simply remove the timeout altogether. Additionally, you will need to change the lines that locate the SQL files to include dirname(__FILE__):
 
-{% highlight php %}
+{% highlight php linenos %}
 <?php
 $schemaSql = file_get_contents(dirname(__FILE__) . '/schema.sqlite.sql');
 $dataSql = file_get_contents(dirname(__FILE__) . '/data.sqlite.sql');
