@@ -3,6 +3,7 @@ title: lboynton.com
 description: "The personal website of Lee Boynton - web developer, software engineer, system administrator, front-end developer..."
 baseurl: ""
 url: "http://lboynton.com"
+cvUrl: "hhttps://docs.google.com/document/d/1HiWPCJd15KALjdxxoXdyCQZJ6Xn8oPNzDGGw4Z4k6wY/edit?usp=sharing"
 username:
     github: lboynton
     twitter: leeboynton
@@ -11,3 +12,4 @@ username:
 # Build settings
 markdown: kramdown
 permalink: pretty
+gems: [jekyll-gist]
