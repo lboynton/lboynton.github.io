@@ -5,4 +5,4 @@ My personal website!
 
 ## Running
 
-Use `jekyll --serve`.
+Use `jekyll serve`.
