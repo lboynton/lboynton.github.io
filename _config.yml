@@ -15,3 +15,5 @@ permalink: pretty
 
 plugins:
     - jekyll-gist
+
+theme: jekyll-theme-cayman
