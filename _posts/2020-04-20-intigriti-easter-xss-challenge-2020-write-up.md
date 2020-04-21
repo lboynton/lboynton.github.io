@@ -140,3 +140,5 @@ Crossing my fingers I pasted this URL encoded string after the .htaccess? in the
 ![Successful XSS]({{ 'assets/intigriti-success.png' | relative_url }})
 
 Success!
+
+{% include twitter_plug.html %}
