@@ -40,10 +40,10 @@ function displayReason(reason){
 ```
 The first thing that stood out immediately was the use of the [`Element.innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) property. This is notorious for being an XSS vector and is often used instead of the safe alternative of [`Node.textContent`](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent).  Any HTML being passed in to the property will be rendered, including script tags.
 
-I decided the goal was obviously to inject some of our own JavaScript here, which means `this.responseText` needs to contain our payload. I also noticed that `unescape()` is being used so our payload needs to be URL encoded. Looking at the code I could see that `this.responseText` was being set as a result of the load event being triggered once the XHR request to `./reasons/${reason}.txt`. I could also see that the location hash was being used to trigger the XHR as well the change event handler on the select box. This means that the payload could be passed through the hash in the URL, and the alert should popup by clicking on a carefully crafted link.
+I decided the goal was obviously to inject some of our own JavaScript here, which means `this.responseText` needs to contain our payload. I also noticed that `unescape()` is being used so our payload needs to be URL encoded. Looking at the code I could see that `this.responseText` was being set as a result of the load event being triggered once the XHR request to `./reasons/${reason}.txt`. I could also see that the location hash was being used to trigger the XHR as well as the change event handler on the select box. This means that the payload could be passed through the hash in the URL, and the alert should popup by clicking on a carefully crafted link.
 
 # Causing Errors
-Knowing that the location hash triggered XHR requests, I tried loading <https://challenge.intigriti.io/#foobar> to see what happens when an unexpected value is passed in through the hash.
+Knowing that the location hash can be used to trigger XHR requests, I tried loading <https://challenge.intigriti.io/#foobar> to see what happens when an unexpected value is passed in through the hash.
 
 ![Passing foobar in location.hash](/assets/intigriti-foobar.png)
 
@@ -78,21 +78,24 @@ I was expecting a CSP bypass to be part of the challenge as it was mentioned in 
 
 I become less confident. This is quite a strict rule, as [Google's CSP](https://csp-evaluator.withgoogle.com/) evaluator shows:
 
-![](/assets/intigriti-csp-evaluator.png)
+![CSP evaluator](/assets/intigriti-csp-evaluator.png)
 
-No glaring issues here. I figured I would have to use a reflected request to load a JavaScript file into the running page, to satisfy the self CSP rule. I also decided this is what the 404 response would be for.
+No glaring issues here. I figured I would have to use a reflected request to load a JavaScript file into the running page, to satisfy the self CSP rule. I also decided this must be what the 404 response is for.
 
 # Returning JavaScript through a 404
 My next attempt to get some JavaScript to run was to use the 403 to return a response with a script tag that has a src attribute pointing to a 404 page with some code reflected in the response. This looked like the following:
 
 ```
-php > echo rawurlencode(rawurlencode('<script src="/document.domain"></script>'));
-%253Cscript%2520src%253D%2522%252Fdocument.domain%2522%253E%253C%252Fscript%253E
+php > echo rawurlencode(rawurlencode('<script src="/alert(document.domain)"></script>'));
+%253Cscript%2520src%253D%2522%252Falert%2528document.domain%2529%2522%253E%253C%252Fscript%253E
 ```
+The result of loading this into the URL was:
+
+![Script not loading]({{ 'assets/intigriti-script-not-loading.png' | relative_url }})
 
 This does not even attempt to load the 404 page because [according to MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML#Security_considerations):
 
-> HTML5 specifies that a <script> tag inserted with innerHTML should not execute.
+> HTML5 specifies that a `<script>` tag inserted with innerHTML should not execute.
 	
 This means we need to find another way of loading a script onto the page. I thought about using an iframe to embed a script tag in, as this would create a new DOM and thought this would probably bypass the innerHTML restriction. The iframe only needed to contain the script tag, so I looked for ways of embedding HTML directly in an iframe without using a `src` attribute. Some Googling led me to the `srcdoc` attribute.
 
@@ -125,7 +128,7 @@ This isn't valid JavaScript. To make it valid you need to split it into three pa
 404 - 'File "';alert(document.domain);'" was not found in this folder.'
 ```
 
-My next attempt was as follows:
+This is valid because `404 - 'File "'` is valid JavaScript, even though it's a string being subtracted from an integer.  The next part is the alert, and the last part is just a string, which does not need to be assigned to anything to be valid. My next attempt was as follows:
 	
 ```
 php > echo rawurlencode(rawurlencode('<iframe srcdoc="<script src=/\';alert(document.domain);\'></script>"></iframe>'));
